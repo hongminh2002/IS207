@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+    <style>
+        img {
+            width: 200px;
+        }
+
+        table,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        button {
+            display: block;
+            margin: 0 60px;
+        }
+
+        .total-money {
+            display: none;
+        }
+    </style>
+    <body>
+        <table>
+            <tr>
+                <td>
+                    <img src="./images/oppo.jpeg" alt="" />
+                    <button class="btn-buy" name="oppo" value="10000000">Mua hàng</button>
+                </td>
+                <td>
+                    <img src="./images/samsung.jpeg" alt="" />
+                    <button class="btn-buy" name="samsung" value="12000000">Mua hàng</button>
+                </td>
+                <td>
+                    <img src="./images/iphone.jpeg" alt="" />
+                    <button class="btn-buy" name="iphone" value="24000000">Mua hàng</button>
+                </td>
+            </tr>
+        </table>
+        <h3>Giỏ hàng</h3>
+        <table class="cart"></table>
+        <button class="btn-tt">Thanh toán</button>
+        <h3>Tổng tiền: <span class="total-money">0</span></h3>
+    </body>
+    <script>
+        $(".btn-buy").click(function () {
+            var proName = $(this).attr("name");
+            var proMoney = $(this).val();
+
+            $(".total-money").html(Number($(".total-money").html()) + Number(proMoney));
+
+            if ($(".cart").find("tr").length == 0) {
+                html = `<tr>
+                        <td class='pro_name'>${$(this).attr("name")}</td>
+                        <td class='pro_qnt'>1</td>
+                        <td class='pro_money'>${$(this).val()}</td>
+                        <td class='pro_del'><button>delete</button></td>
+                        </tr>`;
+                $(".cart").append(html);
+            } else {
+                var flag = 0;
+                $(".cart")
+                    .find("tr")
+                    .each(function () {
+                        if (proName == $(this).find(".pro_name").text()) {
+                            flag = 1;
+                            $(this)
+                                .find(".pro_qnt")
+                                .html(Number($(this).find(".pro_qnt").text()) + 1);
+                            $(this)
+                                .find(".pro_money")
+                                .html(Number($(this).find(".pro_money").text()) + Number(proMoney));
+                        }
+                    });
+                if (flag == 0) {
+                    html = `<tr>
+                        <td class='pro_name'>${$(this).attr("name")}</td>
+                        <td class='pro_qnt'>1</td>
+                        <td class='pro_money'>${$(this).val()}</td>
+                        <td class='pro_del'><button>delete</button></td>
+                        </tr>`;
+                    $(".cart").append(html);
+                }
+            }
+        });
+
+        $(document).on("click", ".pro_del", function (event) {
+            $(this).parents("tr").remove();
+            var pro_money = $(this).parents("tr").find(".pro_money").text();
+            $(".total-money").html(Number($(".total-money").html()) - Number(pro_money));
+        });
+
+        $(".btn-tt").click(function () {
+            $(".total-money").show();
+        });
+    </script>
+</html>
