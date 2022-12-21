@@ -1,5 +1,5 @@
 <?php include("../../path.php"); ?>
-<?php include(ROOT_PATH . "/app/controllers/posts.php"); 
+<?php include(ROOT_PATH . "/app/controllers/posts.php");
 adminOnly();
 ?>
 <!DOCTYPE html>
@@ -26,7 +26,7 @@ adminOnly();
         <!-- Admin Styling -->
         <link rel="stylesheet" href="../../assets/css/admin.css">
 
-        <title>Admin Section - Add Post</title>
+        <title>Admin Section - Edit Post</title>
     </head>
 
     <body>
@@ -49,11 +49,12 @@ adminOnly();
 
                 <div class="content">
 
-                    <h2 class="page-title">Add Post</h2>
+                    <h2 class="page-title">Edit Post</h2>
 
-                    <?php include(ROOT_PATH . '/app/helpers/formErrors.php'); ?>
+                    <?php include(ROOT_PATH . "/app/helpers/formErrors.php"); ?>
 
-                    <form action="create.php" method="post" enctype="multipart/form-data">
+                    <form action="edit.php" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="id" value="<?php echo $id ?>">
                         <div>
                             <label>Title</label>
                             <input type="text" name="title" value="<?php echo $title ?>" class="text-input">
@@ -76,13 +77,12 @@ adminOnly();
                                     <?php else: ?>
                                         <option value="<?php echo $topic['id'] ?>"><?php echo $topic['name'] ?></option>
                                     <?php endif; ?>
-
                                 <?php endforeach; ?>
 
                             </select>
                         </div>
                         <div>
-                            <?php if (empty($published)): ?>
+                            <?php if (empty($published) && $published == 0): ?>
                                 <label>
                                     <input type="checkbox" name="published">
                                     Publish
@@ -97,7 +97,7 @@ adminOnly();
 
                         </div>
                         <div>
-                            <button type="submit" name="add-post" class="btn btn-big">Add Post</button>
+                            <button type="submit" name="update-post" class="btn btn-big">Update Post</button>
                         </div>
                     </form>
 
