@@ -1,5 +1,5 @@
 <?php include("../../path.php"); ?>
-<?php include(ROOT_PATH . "/app/controllers/topics.php");
+<?php include(ROOT_PATH . "/app/controllers/topics.php"); 
 adminOnly();
 ?>
 <!DOCTYPE html>
@@ -26,7 +26,7 @@ adminOnly();
         <!-- Admin Styling -->
         <link rel="stylesheet" href="../../assets/css/admin.css">
 
-        <title>Admin Section - Add Topic</title>
+        <title>Admin Section - Manage Topics</title>
     </head>
 
     <body>
@@ -49,23 +49,27 @@ adminOnly();
 
                 <div class="content">
 
-                    <h2 class="page-title">Add Topic</h2>
-                    <?php include(ROOT_PATH . "/app/helpers/formErrors.php"); ?>
+                    <h2 class="page-title">Manage Topics</h2>
 
-                    <form action="create.php" method="post">
-                        <div>
-                            <label>Name</label>
-                            <input type="text" name="name" value="<?php echo $name ?>" class="text-input">
-                        </div>
-                        <div>
-                            <label>Description</label>
-                            <textarea name="description" id="body"><?php echo $description ?></textarea>
-                        </div>
+                    <?php include(ROOT_PATH . "/app/includes/messages.php"); ?>
 
-                        <div>
-                            <button type="submit" name="add-topic" class="btn btn-big">Add Topic</button>
-                        </div>
-                    </form>
+                    <table>
+                        <thead>
+                            <th>SN</th>
+                            <th>Name</th>
+                            <th colspan="2">Action</th>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($topics as $key => $topic): ?>
+                               <tr>
+                                    <td><?php echo $key + 1; ?></td>
+                                    <td><?php echo $topic['name']; ?></td>
+                                    <td><a href="edit.php?id=<?php echo $topic['id']; ?>" class="edit">edit</a></td>
+                                    <td><a href="index.php?del_id=<?php echo $topic['id']; ?>" class="delete">delete</a></td>
+                                </tr> 
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
 
                 </div>
 
