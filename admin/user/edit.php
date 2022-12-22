@@ -1,5 +1,5 @@
 <?php include("../../path.php"); ?>
-<?php include(ROOT_PATH . "/app/controllers/users.php");
+<?php include(ROOT_PATH . "/app/controllers/users.php"); 
 adminOnly();
 ?>
 <!DOCTYPE html>
@@ -26,7 +26,7 @@ adminOnly();
         <!-- Admin Styling -->
         <link rel="stylesheet" href="../../assets/css/admin.css">
 
-        <title>Admin Section - Add User</title>
+        <title>Admin Section - Edit User</title>
     </head>
 
     <body>
@@ -49,11 +49,12 @@ adminOnly();
 
                 <div class="content">
 
-                    <h2 class="page-title">Add User</h2>
+                    <h2 class="page-title">Edit User</h2>
 
                     <?php include(ROOT_PATH . "/app/helpers/formErrors.php"); ?>
 
-                    <form action="create.php" method="post">
+                    <form action="edit.php" method="post">
+                        <input type="hidden" name="id" value="<?php echo $id; ?>" >
                         <div>
                             <label>Username</label>
                             <input type="text" name="username" value="<?php echo $username; ?>" class="text-input">
@@ -86,7 +87,7 @@ adminOnly();
                         </div>
 
                         <div>
-                            <button type="submit" name="create-admin" class="btn btn-big">Add User</button>
+                            <button type="submit" name="update-user" class="btn btn-big">Update User</button>
                         </div>
                     </form>
 
